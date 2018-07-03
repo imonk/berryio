@@ -85,11 +85,7 @@ until [[ "$emailConfigured" =~ ^[yY]$ ]]; do
     defaultMailFrom="$mailFrom"
   fi
   echo -e "\nMail To:   $mailTo\nMail From: $mailFrom\n"
-  emailConfigured="X"
-  until [[ "$emailConfigured" =~ ^[yYnN]$ || -z "$emailConfigured" ]]; do
-    read -p "Is this correct? [y/N]: " -n1 emailConfigured
-    echo
-  done
+  emailConfigured="Y"
 done
 echo -e "<?\n/*------------------------------------------------------------------------------\n  BerryIO Email Settings\n------------------------------------------------------------------------------*/\n\ndefine('EMAIL_FROM', '$mailFrom');\ndefine('EMAIL_TO', '$mailTo');\n" > /etc/berryio/email.php
 
@@ -105,12 +101,8 @@ cat /proc/cpuinfo | grep 'Revision' | grep 'a02082\|a22082' >> /dev/null && GPIO
 echo -e "\nYour Pi has been detected as a $GPIOConfig"
 gpioConfigured="N";
 until [[ "$gpioConfigured" =~ ^[yY]$ || -z "$gpioConfigured" ]]; do
-  gpioConfigured="X";
+  gpioConfigured="Y";
   echo -e "The GPIO configuration for a $GPIOConfig will be set"
-  until [[ "$gpioConfigured" =~ ^[yYnN]$ || -z "$gpioConfigured" ]]; do
-    read -p "Is this correct? [Y/n]: " -n1 gpioConfigured
-    echo
-  done
   if [[ "$gpioConfigured" =~ ^[nN]$ ]]; then
     GPIOConfig='';
     until [[ "$GPIOConfig" = 'rev1.0' ]] || [[ "$GPIOConfig" = 'rev2.0' ]] || [[ "$GPIOConfig" = 'a_plus' ]] || [[ "$GPIOConfig" = 'b_plus' ]] || [[ "$GPIOConfig" = 'compute_module' ]] || [[ "$GPIOConfig" = '2b' ]] || [[ "$GPIOConfig" = '3b' ]]; do
