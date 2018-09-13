@@ -17,7 +17,7 @@ echo -e "\nRemoving any old copies of BerryIO...."
 rm -fr /usr/share/berryio || { echo -e "Install failed!" 1>&2; exit 1; }
 
 echo -e "\nRetrieving latest copy of BerryIO from GitHub...."
-git clone https://github.com/NeonHorizon/berryio.git /usr/share/berryio/
+git clone https://github.com/imonk/berryio.git /usr/share/berryio/
 
 echo -e "\nCopying in the default config...."
 cp -R /usr/share/berryio/default_config/berryio /etc || { echo -e "Install failed!" 1>&2; exit 1; }

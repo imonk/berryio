@@ -6,6 +6,7 @@
 $GLOBALS['MENU'] = array(
   'welcome'        => 'Welcome',
   'gpio_status'    => 'GPIO',
+  'gpio_timer'     => 'Timer',
   'camera_status'  => 'Camera',
   'spi_status'     => 'SPI',
   'lcd_status'     => 'LCD',

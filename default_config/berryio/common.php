@@ -3,5 +3,5 @@
   BerryIO Common Settings
 ------------------------------------------------------------------------------*/
 
-define('NAME', 'BerryIO');
+define('NAME', 'Garden-Pi');
 date_default_timezone_set('Europe/London');
