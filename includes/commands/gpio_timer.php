@@ -3,7 +3,7 @@
   BerryIO GPIO Status Command
 ------------------------------------------------------------------------------*/
 
-$title = 'GPIO Control';
+$title = 'GPIO Timer Control';
 
 // Load the GPIO functions
 require_once(FUNCTIONS.'gpio.php');
@@ -24,4 +24,4 @@ if(($page['gpio_values'] = gpio_get_values()) === FALSE)
 // Display status page
 $GLOBALS['JAVASCRIPT']['updateGPIO'] = 'updateGPIO';
 require_once(FUNCTIONS.'graph.php');
-$content .= view('pages/timer_status', $page);
+$content .= view('pages/gpio_timer', $page);
