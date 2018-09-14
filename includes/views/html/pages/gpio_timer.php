@@ -11,7 +11,7 @@
         <div class="divider"></div>
         <div class="container gpio_pins">
       <? $count = 0; endif ?>
-      <?=view('modules/gpio/pin', array('pin' => $pin, 'mode' => $mode, 'value' => $gpio_values[$pin]))?>
+      <?=view('modules/gpio/timer', array('pin' => $pin, 'mode' => $mode, 'value' => $gpio_values[$pin]))?>
     <? $count++; endforeach?>
 
   </div>
