@@ -13,6 +13,7 @@ $GLOBALS['USAGE_COMMANDS']['GPIO Control'] = array(
   'gpio_status',
   array('gpio_set_mode', '<pin>|all', 'in|out|not_exported'),
   array('gpio_set_value', '<pin>|all', '<value>'),
+  array('gpio_set_timer', '<pin>|all', '<value>|start|stop'),
 );
 
 
