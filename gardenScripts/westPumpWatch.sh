@@ -3,7 +3,17 @@
 # if the pump pin is high since more than 20 minutes switch off pump and valves
 DATE=`date '+%Y-%m-%d %H:%M:%S'`
 on_period=$1
+verbose=$2
 touch /home/pi/cron.log
+
+#default to 20 min if called without arguments
+if [ $# -eq 0 ]
+  then
+    echo "No argument supplied, setting 20 min"
+    on_period=1200
+fi
+
+
 #d1=$(date +%s --date "$file_last_modified_date")  # 1478037600
 #d2=$(date +%s --date "$variable")                 # 1478099452
 
@@ -25,7 +35,14 @@ date_s=$(date +%s)
 last_west_date=$(date +%s -r /sys/class/gpio/gpio4/value)
 time_diff=$((date_s - last_west_date))
 
-# echo "Diff is $time_diff" #debug
+if [ $# -eq 2 ]
+then
+    if [ $verbose = "-v" ] 
+	then echo "Diff is $time_diff seconds" #debug
+	fi
+fi
+
+
 
 # if value file is on and too old, switch off east pump
 if [ "$time_diff" -gt "$on_period" ]; then
