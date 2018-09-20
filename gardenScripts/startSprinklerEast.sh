@@ -1,6 +1,7 @@
 #!/bin/bash
 # Start Sprinkler East
 # set pin high for East pump and sprinkle valve
+on_period=$1
 
 DATE=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "$DATE: Opening East sprinkle valve" 2>&1;
