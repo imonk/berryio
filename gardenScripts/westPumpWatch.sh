@@ -30,7 +30,9 @@ fi
 #check if pin is high (east pump running)
 on=$(</sys/class/gpio/gpio4/value)
 if [ "$on" -eq 0 ];	then 
+	if [ "$verbose" = true ]; then
 	echo -e "$DATE: Pump and valve off/closed" 2>&1;
+	fi
 	exit 
 fi
 
