@@ -58,5 +58,7 @@ fi
 # if value file is on and too old, switch off east pump
 if [ "$time_diff" -gt "$on_period" ]; then
 	echo -e "!!- $DATE [EAST]!!: Emergency-Stop: $((on_period / 60)) mins of active pump exceeded ($((time_diff/60))) !!!"  2>&1;
+	echo -e 'Subject: GardenPi Emergency East water stop \r\n\r\n After $((on_period / 60)) mins of active pump exceeded $((time_diff/60)) minutes' | msmtp toerst@gmail.com
+	
 	source stopFullWaterEast.sh 2>&1;
 fi 
