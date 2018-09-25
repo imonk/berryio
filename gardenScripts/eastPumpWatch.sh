@@ -22,7 +22,7 @@ fi
 touch /home/pi/cron.log
 # make sure value file exists 
 if [ ! -e "/sys/class/gpio/gpio9/value" ]; then
- echo -e "!!- $DATE : [EAST]!! [FAIL] Checking pump failed, /sys/class/gpio/gpio9/value not found [FAIL]" 2>&1; 	
+ echo -e "!!- $DATE : [EAST]!! [FAIL] Checking pump failed, /sys/class/gpio/gpio9/value not found [FAIL]" ; 	
  exit 3
 fi
 
@@ -37,7 +37,7 @@ fi
 
 #watch
 if [ $# -eq 0 ]; then
-    echo "No argument supplied. Checking for period of 20 min" 2>&1
+    echo "No argument supplied. Checking for period of 20 min" 
    
 elif [ "$on_period" != 0 ]; then
     on_period=$1
@@ -57,8 +57,8 @@ fi
 
 # if value file is on and too old, switch off east pump
 if [ "$time_diff" -gt "$on_period" ]; then
-	echo -e "!!- $DATE [EAST]!!: Emergency-Stop: $((on_period / 60)) mins of active pump exceeded ($((time_diff/60))) !!!"  2>&1;
-	echo -e 'Subject: GardenPi Emergency East water stop \r\n\r\n After $((on_period / 60)) mins of active pump exceeded $((time_diff/60)) minutes' | msmtp toerst@gmail.com
-	
-	source stopFullWaterEast.sh 2>&1;
+	echo -e "!!- $DATE [EAST]!!: Emergency-Stop: $((on_period / 60)) mins of active pump exceeded ($((time_diff/60))) !!!"  ;
+	source stopFullWaterEast.sh ;
+	echo -e "Subject: GardenPi Emergency East water stop \r\n\r\n After $((on_period / 60)) mins ($((on_period)) seconds) of active pump exceeded limit of $(($time_diff/60)) minutes" | msmtp toerst@gmail.com 2>&1
+
 fi 

@@ -23,7 +23,7 @@ touch /home/pi/cron.log
 
 # make sure value file exists 
 if [ ! -e "/sys/class/gpio/gpio4/value" ]; then
- echo -e "!!- $DATE : [WEST]!! [FAIL] Checking pump failed, /sys/class/gpio/gpio4/value not found [FAIL]" 2>&1; 	
+ echo -e "!!- $DATE : [WEST]!! [FAIL] Checking pump failed, /sys/class/gpio/gpio4/value not found [FAIL]"  	
  exit 3
 fi
 
@@ -31,14 +31,14 @@ fi
 on=$(</sys/class/gpio/gpio4/value)
 if [ "$on" -eq 0 ];	then 
 	if [ "$verbose" = true ]; then
-	echo -e "$DATE: Pump and valve off/closed" 2>&1;
+	echo -e "$DATE: Pump and valve off/closed" 
 	fi
 	exit 
 fi
 
 #watch
 if [ $# -eq 0 ]; then
-    echo "No argument supplied. Checking for period of 20 min" 2>&1
+    echo "No argument supplied. Checking for period of 20 min"
    
 elif [ "$on_period" != 0 ]; then
     on_period=$1
@@ -58,7 +58,7 @@ fi
 
 # if value file is on and too old, switch off east pump
 if [ "$time_diff" -gt "$on_period" ]; then
-	echo -e "!!- $DATE [WEST]!!: Emergency-Stop pump & valve: $((on_period / 60)) mins of active pump exceeded ($((time_diff/60))) !!!"  2>&1;
-	echo -e 'Subject: GardenPi Emergency West water stop \r\n\r\n After $((on_period / 60)) mins of active pump exceeded $((time_diff/60)) minutes' | msmtp toerst@gmail.com
-	source stopWaterWest.sh 2>&1; 
+	echo -e "!!- $DATE [WEST]!!: Emergency-Stop pump & valve: $((on_period / 60)) mins of active pump exceeded ($((time_diff/60))) !!!"  
+	source stopWaterWest.sh  
+	echo -e "Subject: GardenPi Emergency West water stop: \r\n\r\n After $((on_period / 60)) mins ($((on_period)) seconds) of active pump exceeded limit of $(($time_diff/60)) minutes" | msmtp toerst@gmail.com 2>&1
 fi

@@ -8,7 +8,7 @@ twentyMinutes=12 #1200
 # make sure value file exists 
 if [ ! -e "/sys/class/gpio/gpio4/value" ]
 then
- echo -e "!!- $DATE - !!: Checking west pump failed, gpio4/value not found" 2>&1; 	
+ echo -e "!!- $DATE - !!: Checking west pump failed, gpio4/value not found"; 	
  exit 3
 fi
 
@@ -22,6 +22,6 @@ last_west_date=$(date +%s -r /sys/class/gpio/gpio4/value)
 
 if (( (date_s - last_west_date) > twentyMinutes )); then
     
-	echo -e "!!- $DATE - !!: Emergency-Stop West pump, 20 mins active pump exceeded"  2>&1;
-	echo '0' > /sys/class/gpio/gpio4/value || { echo -e "!!- $DATE - !!: Emergency Stop West pump failed" 2>&1; }
+	echo -e "!!- $DATE - !!: Emergency-Stop West pump, 20 mins active pump exceeded" ;
+	echo '0' > /sys/class/gpio/gpio4/value || { echo -e "!!- $DATE - !!: Emergency Stop West pump failed"; }
 fi

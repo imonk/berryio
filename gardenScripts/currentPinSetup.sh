@@ -3,7 +3,7 @@
 # if the pump pin is high since more than 20 minutes switch off pump and valves
 PATH="$PATH:/usr/share/berryio/gardenScripts"
 DATE=`date '+%Y-%m-%d %H:%M:%S'`
-echo "[$DATE] Setting up pins 4,9,12 and 17 as out" 2>&1
+echo "[$DATE] Setting up pins 4,9,12 and 17 as out"
 
 source setAsOutPin.sh 17 2>&1
 source setAsOutPin.sh 12 2>&1
