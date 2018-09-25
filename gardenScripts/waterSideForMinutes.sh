@@ -5,6 +5,17 @@ minutes=$2
 channel=$3
 stop="0";
 
+waitAndCheckUserInput () {
+	#sleep "$minutes"m
+	local end=$((SECONDS+60*$minutes))
+	while [ $SECONDS -lt $end ]; do
+      read -t 1 stop;
+      if [[ $stop == "s" ]]; then
+       break
+ 	  fi
+ 	done
+}
+
 if [ $side = "east" ]; then
 	### Full-Water ###
 	if [ $# -eq 2 ]; then
@@ -40,13 +51,3 @@ if [ $side = "west" ]; then
 	 source stopWaterWest.sh
 fi
 
-waitAndCheckUserInput () {
-	#sleep "$minutes"m
-	local end=$((SECONDS+60*$minutes))
-	while [ $SECONDS -lt $end ]; do
-      read -t 1 stop;
-      if [[ $stop == "s" ]]; then
-       break
- 	  fi
- 	done
-}
