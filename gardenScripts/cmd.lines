@@ -1,0 +1,5 @@
+#cmd line email options
+curl --url 'smtps://smtp.gmail.com:465' --ssl-reqd   --mail-from 'toerst@gmail.com' --mail-rcpt 'toerst@gmail.com'   --upload-file mail.txt --user 'toerst@gmail.com:lomlicvpmvxpuahd'
+
+echo "Hello this is sending 2nd email using sendmail" | sendmail toerst@gmail.com
+echo -e 'Subject: Command line test \r\n\r\n Hello this is sending emails using msmtp' | msmtp toerst@gmail.com

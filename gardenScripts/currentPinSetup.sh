@@ -10,5 +10,11 @@ source setAsOutPin.sh 12 2>&1
 source setAsOutPin.sh 9  2>&1
 source setAsOutPin.sh 4  2>&1
 
-echo -e 'Subject: GardenPi startup \r\n\r\nSet up pins modes at $DATE' | msmtp toerst@gmail.com
+sleep 5
 
+while ! ping -q -c 1 -W 1 google.com >/dev/null;  do
+	sleep 5
+done
+
+GPIOS="$(ls /sys/class/gpio/)"
+echo -e "Subject: gardenPi started up \r\n\r\nSet up pins modes at $DATE as $GPIOS  \r\n $(crontab -u pi -l)" | msmtp toerst@gmail.com

@@ -1,0 +1,15 @@
+# For more information see the manual pages of crontab(5) and cron(8)#
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/berryio/gardenScripts
+#PATH=4PATH:/usr/share/berryio/gardenScripts
+
+@reboot currentPinSetup.sh >> /home/pi/cron.log 2>&1
+
+# m  h  dom mon dow   command
+# 15 10  *   *   *    waterSideForMinutes.sh  east 8  >> /home/pi/cron.log 2>&1
+# 25 10  *   *   *    waterSideForMinutes.sh  east 4 drip >> /home/pi/cron.log 2>&1
+# 30 10  *   *   *    waterSideForMinutes.sh  west 8  >> /home/pi/cron.log 2>&1
+# 30 15  *   *   *    waterSideForMinutes.sh  east 10 drip  >> /home/pi/cron.log 2>&1
+# 45 15  *   *   *    waterSideForMinutes.sh  west 10  >> /home/pi/cron.log 2>&1
+ *  *   *   *   *    westPumpWatch.sh 720 >> /home/pi/cron.log 2>&1
+ *  *   *   *   *    eastPumpWatch.sh 1000 >> /home/pi/cron.log 2>&1
