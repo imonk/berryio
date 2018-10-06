@@ -9,7 +9,7 @@
 settings('gpio', 3);
 $GLOBALS['GPIO_MODES'] = array('in', 'out', 'not_exported');
 $GLOBALS['GPIO_VALUES'] = array(0, 1);
-
+$GLOBALS['GPIO_TIMERS'] = array(0, 1);
 
 /*----------------------------------------------------------------------------
   Get the current value from a GPIO pin
@@ -241,4 +241,43 @@ function gpio_set_modes($modes)
       $count++;
 
   return $count;
+}
+
+/*----------------------------------------------------------------------------
+  Gets the current mode of a GPIO Pin
+  Returns FALSE on failure and "not_exported", "in" or "out" on success
+----------------------------------------------------------------------------*/
+function gpio_get_timer($pin)
+{
+  // Check pin number is good
+  if(!is_numeric($pin) || !array_key_exists($pin, $GLOBALS['GPIO_PINS'])) return FALSE; 
+  if(!is_numeric($pin) || !array_key_exists($pin, $GLOBALS['GPIO_TIMERS'])) return FALSE;
+
+  // Check to see if its not exported
+  if(!file_exists('/sys/class/gpio/gpio'.($pin + 0))) return 'not_exported';
+
+  // Get the timer
+  //return $GLOBALS['GPIO_TIMERS'][$pin];
+  return $GLOBALS['GPIO_TIMERS'][$pin];
+}
+
+
+/*----------------------------------------------------------------------------
+  Set the given GPIO pin to 1, wait specified seconds then set pin to 0
+  Returns FALSE on failure or if the pin is not in out mode, and TRUE on success
+----------------------------------------------------------------------------*/
+function gpio_set_timer($pin, $time)
+{
+  // Check the timer is good
+  if(!is_numeric($time) || $time<0) return FALSE;
+
+  // Set the value
+  if(gpio_set_value($pin, '1')) {
+    $GLOBALS['GPIO_TIMERS'][$pin] = date_create();
+    // wait specified time
+     sleep($time);
+     return gpio_set_value($pin, '0') !== FALSE; 
+  } else {
+    return FALSE;
+  }
 }

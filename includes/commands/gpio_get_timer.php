@@ -1,6 +1,6 @@
 <?
 /*------------------------------------------------------------------------------
-  BerryIO GPIO Set Mode Command
+  BerryIO GPIO Get Timer Command
 ------------------------------------------------------------------------------*/
 
 $title = 'GPIO Control';
@@ -9,17 +9,20 @@ $title = 'GPIO Control';
 require_once(FUNCTIONS.'gpio.php');
 
 // Check the args
-if(count($args) != 2)
+if(count($args) != 1)
 {
-  $content .= usage('Please provide pin and mode information');
+  $content .= usage('Please provide pin number');
   return FALSE;
 }
 
-// Set the GPIO Mode
-if(gpio_set_mode($args[0], $args[1]) === FALSE)
+// Get the timer
+$date = gpio_get_timer($args[0]);
+if($date === FALSE)
 {
-  $content .= message('ERROR: Cannot set GPIO pin "'.$args[0].'" into mode "'.$args[1].'"', 'gpio_status');
+  $content .= message('No timer set for GPIO pin "'.$args[0].'"', 'gpio_status');
   return FALSE;
+} else {
+	$content .= $date->format('U = Y-m-d H:i:s');
 }
 
 if($GLOBALS['EXEC_MODE'] != 'api')

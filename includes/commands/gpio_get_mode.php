@@ -16,10 +16,13 @@ if(count($args) != 1)
 }
 
 // Set the GPIO Mode
-if(gpio_get_mode($args[0])
+
+if(($mode = gpio_get_mode($args[0])) === FALSE)
 {
-  $content .= message('ERROR: Cannot set GPIO pin "'.$args[0].'" into mode "'.$args[1].'"', 'gpio_status');
+  $content .= message('ERROR: Cannot get GPIO pin "'.$args[0].'" mode', 'gpio_status');
   return FALSE;
+} else {
+  $content .= $mode;
 }
 
 if($GLOBALS['EXEC_MODE'] != 'api')
