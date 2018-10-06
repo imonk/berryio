@@ -9,14 +9,14 @@ $title = 'GPIO Control';
 require_once(FUNCTIONS.'gpio.php');
 
 // Check the args
-if(count($args) != 2)
+if(count($args) != 1)
 {
-  $content .= usage('Please provide pin and mode information');
+  $content .= usage('Please provide pin number');
   return FALSE;
 }
 
 // Set the GPIO Mode
-if(gpio_set_mode($args[0], $args[1]) === FALSE)
+if(gpio_get_mode($args[0])
 {
   $content .= message('ERROR: Cannot set GPIO pin "'.$args[0].'" into mode "'.$args[1].'"', 'gpio_status');
   return FALSE;
